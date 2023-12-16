@@ -1,0 +1,75 @@
+# Projet Java avec Gradle
+
+## Structure du Projet :
+
+Le projet suit la structure standard d'un projet Gradle avec le code source Java organisé dans le dossier `src` sous le package `tp`.
+
+## Classe Principale (Gradletp) :
+
+La classe principale du programme est `Gradletp`. Sa méthode `main` imprime "hello world!" dans la console.
+
+```java
+public class Gradletp {
+    public static void main(String[] args) {
+        System.out.println("hello world!");
+    }
+}
+```
+
+## Script Gradle (`build.gradle`) :
+
+Le fichier `build.gradle` configure le projet en tant que projet Java et spécifie les détails pour créer un fichier JAR exécutable. La tâche JAR est configurée avec un attribut `Main-Class` défini sur `tp.Gradletp`, indiquant la classe principale à exécuter.
+
+```groovy
+plugins {
+    id 'java'
+}
+
+jar {
+    manifest {
+        attributes 'Main-Class': 'tp.Gradletp'
+    }
+}
+```
+
+## Dépendances :
+
+La seule dépendance déclarée est JUnit (JUnit 4.13.2) pour les tests unitaires. Elle est configurée dans la section `dependencies` du fichier Gradle, avec l'ajout du référentiel Maven Central.
+
+```groovy
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testImplementation group: 'junit', name: 'junit', version: '4.13.2'
+}
+```
+
+## Exécution du Projet :
+
+Pour exécuter le projet, utilisez les commandes Gradle suivantes dans le terminal :
+- Initialiser le projet : `gradle init`
+- Construire le projet : `.\gradlew build`
+- Afficher les tâches Gradle disponibles : `./gradlew tasks`
+- Exécuter les tests unitaires : `.\gradlew test`
+- Lancer l'application depuis le terminal : `java -jar build/libs/tutorial.jar`
+
+## Tests Unitaires (Tptest) :
+
+Il existe une classe de tests `Tptest` dans le package `tp` qui teste la classe principale `Gradletp`. La méthode `verifyNoExceptionThrown` lance la méthode `main` de `Gradletp` avec un tableau d'arguments vides.
+
+```java
+package tp;
+
+import org.junit.Test;
+
+public class Tptest {
+    @Test
+    public void verifyNoExceptionThrown() {
+        Gradletp.main(new String[]{});
+    }
+}
+```
+
+Ce projet simple démontre de manière pratique l'utilisation de Gradle pour la construction d'un projet Java, l'organisation du code source, la gestion des dépendances, et l'exécution d'applications avec des tests unitaires. Les commandes Gradle mentionnées facilitent la gestion et l'exécution du projet.
